@@ -4,34 +4,36 @@
 
     <p id="error" v-if="error">{{error}}</p>
 
+    <label for="note">Insert a chord to get the relevant scale:</label>
+    <input type="text" name="note" id="note" v-model="note">
+
+
+    <br><br>
+    <button v-on:click="test(note)">Get scale</button>
+
   </div>
 </template>
 
 <script>
-
+import { getScaleStartingPosition } from "../functions.js";
 
 export default {
+
   name: 'Home',
-  created () {
-    this.getPeople()
-  },
     data: function() {
         return {
             error: "",
+            result: "",
+            note: ""
         }
     },
     methods: {
+      test: function(param) {
+        getScaleStartingPosition(param).then(function(data) {
+          console.log(data);
+        });
+      }
 
-      getPeople: function() {
-        /*
-          axios.get("http://localhost:3000/users").then((response) => {
-              if (response != null) {
-                  this.people = response.data;
-              } else {
-                  console.log(response);
-              }
-          })*/
-      },
 
     }
 }
