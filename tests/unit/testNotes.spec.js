@@ -7,7 +7,6 @@ import Home from '@/components/Home'
 
 import Notes from "../../src/notes.js";
 
-
 it('Gets correct index from notes', () => {
 
     let notesObject = new Notes();
@@ -30,15 +29,5 @@ it('Stepping whole steps in array', () => {
 
     let resultIndex = obj.getIndex();
     expect(resultIndex).to.equal(3);
-
-})
-
-it('Get major scale', () => {
-
-    let notesObject = new Notes();
-
-    let result1 = notesObject.getMajorScale("C");
-    expect(result1).to.have.lengthOf(7);
-    expect(result1).to.eql(["C", "D", "E", "F", "G", "A", "B"]);
 
 })

@@ -27,10 +27,6 @@ export default class Notes {
             result = this.array.indexOf(input);
         }
 
-        if (result > 11) {
-            result = result % 11;
-        }
-
         this.index = result; // Sets index to correct starting note
         return this.index;
     }
@@ -55,22 +51,4 @@ export default class Notes {
     getIndex() {
         return this.index;
     }
-
-    getMajorScale(input) {
-        let result = [];
-
-        this.setStartingNote(input);
-
-        // C major example
-        result.push(input); // C
-        result.push(this.stepWhole()); // D
-        result.push(this.stepWhole()); // E
-        result.push(this.stepHalf()); // F
-        result.push(this.stepWhole()); // G
-        result.push(this.stepWhole()); // A
-        result.push(this.stepWhole()); // B
-
-        return result;
-    }
-
 }
