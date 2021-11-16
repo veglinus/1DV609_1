@@ -5,6 +5,20 @@ export default class Scales extends Notes {
         super();
     }
 
+    getScale(input) {
+        let startNote = input.slice(0, 1);
+        if (input.length > 1) {
+            let inputEnd = input.slice(-1);
+            inputEnd = inputEnd.toLowerCase();
+
+            if (inputEnd === "m") {
+                return this.getMinorScale(startNote);
+            }
+        } else {
+            return this.getMajorScale(startNote);
+        }
+    }
+
     getMajorScale(input) {
         let result = [];
         this.setStartingNote(input);

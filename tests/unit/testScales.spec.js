@@ -1,11 +1,14 @@
 import { expect } from 'chai'
 import Scales from "../../src/scales.js";
 
+let aMinorScale = ["A", "B", "C", "D", "E", "F", "G"];
+let cMajorScale = ["C", "D", "E", "F", "G", "A", "B"]
+
 it('Test major scale', () => {
     let scales = new Scales();
     let result = scales.getMajorScale("C");
     expect(result).to.have.lengthOf(7);
-    expect(result).to.eql(["C", "D", "E", "F", "G", "A", "B"]);
+    expect(result).to.eql(cMajorScale);
 
 })
 
@@ -13,7 +16,7 @@ it('Test minor scale', () => {
     let scales = new Scales();
     let result = scales.getMinorScale("A");
     expect(result).to.have.lengthOf(7);
-    expect(result).to.eql(["A", "B", "C", "D", "E", "F", "G"]);
+    expect(result).to.eql(aMinorScale);
 
 })
 
@@ -31,3 +34,13 @@ it('Test minor pentatonic scale', () => {
     expect(result).to.have.lengthOf(5);
     expect(result).to.eql(["A", "C", "D", "E", "G"]);
 })
+
+it("Test getScale", () => {
+    let scales = new Scales();
+    
+    let result = scales.getScale("Am");
+    expect(result).to.eql(aMinorScale);
+
+    let result2 = scales.getScale("C");
+    expect(result2).to.eql(cMajorScale);
+});
