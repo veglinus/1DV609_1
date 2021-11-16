@@ -13,6 +13,7 @@ it('Get notes of major chord', () => {
     expect(result1).to.eql(["C", "E", "G"]);
 })
 
+
 it('Get notes of minor chord', () => {
     let chords = new Chords();
     let result2 = chords.getNotesForChord("Am");
