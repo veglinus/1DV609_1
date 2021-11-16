@@ -5,7 +5,7 @@ import { shallowMount } from '@vue/test-utils'
 import Home from '@/components/Home'
 */
 
-import Notes from "../../src/notes.js";
+import Notes from "../../src/classes/notes.js";
 
 it('Gets correct index from notes', () => {
 

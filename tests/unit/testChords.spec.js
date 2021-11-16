@@ -5,7 +5,7 @@ import { shallowMount } from '@vue/test-utils'
 import Home from '@/components/Home'
 */
 
-import Chords from "../../src/chords.js";
+import Chords from "../../src/classes/chords.js";
 
 it('Get notes of major chord', () => {
     let chords = new Chords();

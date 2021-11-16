@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import Scales from "../../src/scales.js";
+import Scales from "../../src/classes/scales.js";
 
 let aMinorScale = ["A", "B", "C", "D", "E", "F", "G"];
 let cMajorScale = ["C", "D", "E", "F", "G", "A", "B"]
@@ -37,7 +37,7 @@ it('Test minor pentatonic scale', () => {
 
 it("Test getScale", () => {
     let scales = new Scales();
-    
+
     let result = scales.getScale("Am");
     expect(result).to.eql(aMinorScale);
 

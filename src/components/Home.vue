@@ -28,7 +28,7 @@
 
 <script>
 //import Notes from "../../src/notes.js";
-import Scales from "../../src/scales.js";
+import Scales from "../classes/scales.js";
 import * as Tone from 'tone';
 
 const kick = new Tone.Player("https://cdn.jsdelivr.net/gh/Tonejs/Tone.js/examples/audio/505/kick.mp3").toDestination();
