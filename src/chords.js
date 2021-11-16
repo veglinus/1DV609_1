@@ -22,6 +22,8 @@ export default class Chords extends Notes {
     getMajorChord(input) {
         let result = [];
 
+        this.setStartingNote(input);
+
         result.push(input);
         this.stepWhole();
         result.push(this.stepWhole());
@@ -34,13 +36,13 @@ export default class Chords extends Notes {
     getMinorChord(input) {
         let result = [];
 
+        this.setStartingNote(input);
+
         result.push(input);
         this.stepWhole();
         result.push(this.stepHalf());
-        /*
         this.stepWhole();
         result.push(this.stepWhole());
-        */
 
         return result;
     }
