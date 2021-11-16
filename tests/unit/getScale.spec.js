@@ -22,14 +22,14 @@ it('Gets correct index from notes', () => {
 
 it('Stepping whole steps in array', () => {
 
-    let notesObject = new Notes();
+    let obj = new Notes();
 
-    notesObject.setStartingNote("C#");
-    notesObject.stepWhole;
-    notesObject.stepHalf;
+    obj.setStartingNote("C");
+    obj.stepWhole();
+    obj.stepHalf();
 
-    let result1 = notesObject.getIndex();
-    expect(result1).to.equal(5);
+    let resultIndex = obj.getIndex();
+    expect(resultIndex).to.equal(3);
 
 })
 
