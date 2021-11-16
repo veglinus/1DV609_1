@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import { getScaleStartingPosition } from "../functions.js";
+//import { getScaleStartingPosition } from "../functions.js";
+import Notes from "../../src/notes.js";
 
 export default {
 
@@ -29,9 +30,9 @@ export default {
     },
     methods: {
       test: function(param) {
-        getScaleStartingPosition(param).then(function(data) {
-          console.log(data);
-        });
+        let notes = new Notes();
+        let result = notes.setStartingNote(param);
+        console.log(result);
       }
 
 
