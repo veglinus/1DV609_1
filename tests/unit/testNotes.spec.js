@@ -31,3 +31,31 @@ it('Stepping whole steps in array', () => {
     expect(resultIndex).to.equal(3);
 
 })
+
+it('Wrapping around of index', () => {
+
+    let obj = new Notes();
+
+    obj.setStartingNote("B");
+    obj.stepHalf();
+    let resultIndex = obj.getIndex();
+    expect(resultIndex).to.equal(0);
+
+})
+
+it("Wrapping around of index, larger", () => {
+    let obj2 = new Notes();
+    obj2.setStartingNote("A#");
+    obj2.stepWhole();
+    obj2.stepWhole();
+    obj2.stepWhole();
+    obj2.stepWhole();
+    obj2.stepWhole();
+
+    obj2.stepWhole();
+    obj2.stepWhole();
+    obj2.stepWhole();
+
+    let result2 = obj2.getIndex();
+    expect(result2).to.equal(2);
+})

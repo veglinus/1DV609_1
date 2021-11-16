@@ -33,7 +33,7 @@ export default class Notes {
 
     verifyIndex() {
         if (this.index > 11) {
-            this.index = this.index % 11;
+            this.index = this.index % 12;
         }
         return;
     }
