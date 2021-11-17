@@ -30,9 +30,12 @@
 
 
     <br><br>
-    <p v-if="currentScale">Current scale notes:</p>
-    <ul id="notes" v-if="currentScale">
-      <li v-for="item in currentScale" :key="item">{{item}}</li>
+    <p v-if="currentScale">Current scales:</p>
+    <ul id="notes" v-for="scale in currentScale" :key="scale.name">
+      <li>{{scale.name}}: </li>
+      <li v-for="note in scale.notes" :key="note">{{note}}</li>
+
+      
     </ul>
 
 
@@ -45,7 +48,8 @@
 
 <script>
 import Chords from "../classes/chords.js";
-import Scales from "../classes/scales.js";
+//import Scales from "../classes/scales.js";
+import ScaleAnalyzer from "../classes/scaleAnalyzer.js";
 import * as Tone from 'tone';
 
 const kick = new Tone.Player("https://cdn.jsdelivr.net/gh/Tonejs/Tone.js/examples/audio/505/kick.mp3").toDestination();
@@ -71,6 +75,7 @@ export default {
             chord3: "C",
             chord4: "G",
             chordArrray: [],
+            chordNamesArray: [],
             snare: true,
             kick: true,
             hihat: true,
@@ -78,7 +83,7 @@ export default {
     },
     methods: {
       prepare: function() {
-
+        this.getCurrentScale(this.chordArrray);
       },
 
       play: function() {
@@ -88,7 +93,7 @@ export default {
         let snareInput = this.snare;
         let bpmInput = this.bpm;
 
-        this.getCurrentScale(this.chord1);
+        //this.getCurrentScale(this.chordArrray);
         
         console.log("Initializing sequencer" + "First chord is: " + arr[0]);
 
@@ -152,6 +157,12 @@ export default {
         let chords = new Chords();
         this.chordArrray = [];
 
+        this.chordNamesArray.push(this.chord1);
+        this.chordNamesArray.push(this.chord2);
+        this.chordNamesArray.push(this.chord3);
+        this.chordNamesArray.push(this.chord4);
+
+
         this.chordArrray.push(chords.getNotesForChord(this.chord1));
         this.chordArrray.push(chords.getNotesForChord(this.chord2));
         this.chordArrray.push(chords.getNotesForChord(this.chord3));
@@ -162,10 +173,17 @@ export default {
       },
 
       getCurrentScale: function(input) {
-        let scale = new Scales();
-        let result = scale.getScale(input);
+
+        this.populateChordArray();
+
+        input = this.chordNamesArray;
+        console.log("Sending to analyzer: " + input);
+        let scaleAnalyzer = new ScaleAnalyzer();
+
+        let result = scaleAnalyzer.findScaleFor(input);
+
         this.currentScale = result;
-        console.log(result);
+        //console.log("Result: " + result.toString());
       },
     }
 }

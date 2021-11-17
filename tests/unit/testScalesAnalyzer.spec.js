@@ -6,6 +6,17 @@ it('Find a scale from chords', () => {
 
     let result = scales.findScaleFor(["Am", "F", "C", "G"]);
 
-    expect(result).to.eql(["Am", "Bm", "C", "Dm", "Em", "F", "G"]);
+    expect(result).to.eql(
+        [
+            {
+                "name" : "Am",
+                "notes" : ["A", "B", "C", "D", "E", "F", "G"]
+            },
+            {
+                "name" : "C",
+                "notes" : ["C", "D", "E", "F", "G", "A", "B"]
+            }
+        ]
+    );
 
 })
