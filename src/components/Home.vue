@@ -4,6 +4,7 @@
 
     <p id="error" v-if="error">{{error}}</p>
 
+    <h2>Input chords:</h2>
     <div id="chordInput">
       <input type="text" name="chord1" id="chord1" v-model="chord1">
       <input type="text" name="chord2" id="chord2" v-model="chord2">
@@ -29,6 +30,7 @@
 
 
     <br><br>
+    <p v-if="currentScale">Current scale notes:</p>
     <ul id="notes" v-if="currentScale">
       <li v-for="item in currentScale" :key="item">{{item}}</li>
     </ul>
@@ -61,8 +63,9 @@ export default {
         return {
             error: "",
             note: "",
-            bpm: 120,
+            bpm: 100,
             currentScale: "",
+            nextScale: "",
             chord1: "Am",
             chord2: "F",
             chord3: "C",
@@ -83,6 +86,9 @@ export default {
         let hihatInput = this.hihat;
         let kickInput = this.kick;
         let snareInput = this.snare;
+        let bpmInput = this.bpm;
+
+        this.getCurrentScale(this.chord1);
         
         console.log("Initializing sequencer" + "First chord is: " + arr[0]);
 
@@ -108,7 +114,6 @@ export default {
           }
           if (idx == 4) {
             polySynth.triggerAttackRelease(arr[1], "4n");
-            
           }
           if (idx == 8) {
             polySynth.triggerAttackRelease(arr[2], "4n");
@@ -128,7 +133,7 @@ export default {
 
         console.log("Playing!");
         
-        Tone.Transport.bpm.value = "120";
+        Tone.Transport.bpm.value = bpmInput;
         Tone.Transport.start();
         seq.start();
 
@@ -156,7 +161,7 @@ export default {
         return this.chordArrray;
       },
 
-      getData: function(input) {
+      getCurrentScale: function(input) {
         let scale = new Scales();
         let result = scale.getScale(input);
         this.currentScale = result;

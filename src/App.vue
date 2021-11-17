@@ -29,6 +29,29 @@ export default {
   margin-left: 1%;
   margin-right: 1%;
 }
+
+#chordInput {
+  display: flex;
+  justify-content: center;
+}
+
+input[type=text] {
+
+  width: 12%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+
+  text-align: center;
+  font-size: 4em;
+
+  margin-left: 1%;
+  margin-right: 1%;
+
+  border: 2px solid #CCCCCC;
+  border-radius: 10px;
+
+}
+
 input[type=number] {
   width: 30px;
   text-align: center;
