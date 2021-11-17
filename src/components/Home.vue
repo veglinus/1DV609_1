@@ -41,32 +41,7 @@ const kick = new Tone.Player("https://cdn.jsdelivr.net/gh/Tonejs/Tone.js/example
 const snare = new Tone.Player("https://cdn.jsdelivr.net/gh/Tonejs/Tone.js/examples/audio/505/snare.mp3").toDestination();
 const hihat =  new Tone.Player("https://cdn.jsdelivr.net/gh/Tonejs/Tone.js/examples/audio/505/hh.mp3").toDestination();
 const polySynth = new Tone.PolySynth().toDestination();
-
-let seq = new Tone.Sequence(function(time, idx) {
-  hihat.start();
-
-  if ([0, 4, 8, 12].indexOf(idx) >= 0) {
-    kick.start();
-  }
-  if ([2, 6, 10, 14].indexOf(idx) >= 0) {
-    snare.start();
-  }
-
-  if (idx == 0) {
-    polySynth.triggerAttackRelease(["C3", "E3", "G3"], "4n");
-  }
-  if (idx == 4) {
-    polySynth.triggerAttackRelease(["G3", "B3", "D3"], "4n");
-  }
-  if (idx == 8) {
-    polySynth.triggerAttackRelease(["A3", "C3", "E3"], "4n");
-  }
-  if (idx == 12) {
-    polySynth.triggerAttackRelease(["F3", "A3", "C3"], "4n");
-  }
-
-
-}, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], "8n");
+let seq;
 
 export default {
   created () {
@@ -79,38 +54,84 @@ export default {
             note: "",
             bpm: 120,
             currentScale: "",
-            seq: null,
-            chord1: null,
-            chord2: null,
-            chord3: null,
-            chord4: null,
+            chord1: "Am",
+            chord2: "F",
+            chord3: "C",
+            chord4: "G",
             chordArrray: [],
         }
     },
     methods: {
       prepare: function() {
-        console.log("test");
-        const context = new Tone.Context({ latencyHint: "interactive" });
-        Tone.setContext(context);
+
       },
 
       play: function() {
+        let arr = this.populateChordArray();
+        
+        console.log("Initializing sequencer" + "First chord is: " + arr[0]);
+
+        seq = new Tone.Sequence(function(time, idx) {
+          hihat.start();
+
+          if ([0, 4, 8, 12].indexOf(idx) >= 0) {
+            kick.start();
+          }
+          if ([2, 6, 10, 14].indexOf(idx) >= 0) {
+            snare.start();
+          }
+
+          if (idx == 0) {
+            polySynth.triggerAttackRelease(arr[0], "4n");
+          }
+          if (idx == 4) {
+            polySynth.triggerAttackRelease(arr[1], "4n");
+            
+          }
+          if (idx == 8) {
+            polySynth.triggerAttackRelease(arr[2], "4n");
+          }
+          if (idx == 12) {
+            polySynth.triggerAttackRelease(arr[3], "4n");
+          }
+
+        }, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], "8n");
+
+        //const context = new Tone.Context({ latencyHint: "interactive" });
+        //Tone.setContext(context);
+
+        if (Tone.context.state !== 'running') {
+          Tone.context.resume();
+        }
+
+        console.log("Playing!");
+        
+        Tone.Transport.bpm.value = "120";
+        Tone.Transport.start();
+        seq.start();
+
+        
+      },
+
+      stop: function() {
+        Tone.Transport.stop();
+        polySynth.releaseAll();
+        seq.stop();
+        seq.clear();
+        seq.dispose();
+      },
+
+      populateChordArray: function() {
         let chords = new Chords();
+        this.chordArrray = [];
+
         this.chordArrray.push(chords.getNotesForChord(this.chord1));
         this.chordArrray.push(chords.getNotesForChord(this.chord2));
         this.chordArrray.push(chords.getNotesForChord(this.chord3));
         this.chordArrray.push(chords.getNotesForChord(this.chord4));
 
-        console.log(this.chordArrray);
-
-        Tone.Transport.bpm.value = this.bpm;
-        Tone.Transport.start();
-        seq.start();
-      },
-
-      stop: function() {
-        Tone.Transport.stop();
-        seq.stop();
+        console.log("Done populating");
+        return this.chordArrray;
       },
 
       getData: function(input) {
