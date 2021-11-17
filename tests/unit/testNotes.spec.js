@@ -19,6 +19,18 @@ it('Gets correct index from notes', () => {
 
 })
 
+it('Handles lowercase letters', () => {
+
+    let notesObject = new Notes();
+
+    let result1 = notesObject.setStartingNote("c#");
+    expect(result1).to.equal(1);
+
+    let result2 = notesObject.setStartingNote("b");
+    expect(result2).to.equal(11);
+
+})
+
 it('Stepping whole steps in array', () => {
 
     let obj = new Notes();

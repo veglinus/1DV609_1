@@ -7,6 +7,7 @@ export default class Notes {
 
     setStartingNote(input) {
         let result = null;
+        input = input.charAt(0).toUpperCase() + input.slice(1); // Sets first letter to uppercase
 
         if (input.length == 2) {
             let inputSliced = input.slice(0, 1);
