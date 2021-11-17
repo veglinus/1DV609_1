@@ -4,20 +4,29 @@
 
     <p id="error" v-if="error">{{error}}</p>
 
-    <!--
-    <label for="note">Insert a chord to get the relevant scale:</label>
-    <input type="text" name="note" id="note" v-model="note"> 
+    <div id="chordInput">
+      <input type="text" name="chord1" id="chord1" v-model="chord1">
+      <input type="text" name="chord2" id="chord2" v-model="chord2">
+      <input type="text" name="chord3" id="chord3" v-model="chord3">
+      <input type="text" name="chord4" id="chord4" v-model="chord4">
+    </div>
 
     <br><br>
-    <button v-on:click="getData(note)">Get scale</button>-->
+    <div id="settings">
+      <label for="bpm">BPM: </label>
+      <input type="number" name="bpm" id="bpm" v-model="bpm">
+      <br>
 
-    <input type="text" name="chord1" id="chord1" v-model="chord1">
-    <input type="text" name="chord2" id="chord2" v-model="chord2">
-    <input type="text" name="chord3" id="chord3" v-model="chord3">
-    <input type="text" name="chord4" id="chord4" v-model="chord4">
+      <label for="hihat">Hihat:</label>
+      <input type="checkbox" name="hihat" id="hihat" v-model="hihat">
 
+      <label for="snare">Snare:</label>
+      <input type="checkbox" name="snare" id="snare" v-model="snare">
 
-    <input type="number" name="bpm" id="bpm" v-model="bpm">
+      <label for="kick">Kick:</label>
+      <input type="checkbox" name="kick" id="kick" v-model="kick">
+    </div>
+
 
     <br><br>
     <ul id="notes" v-if="currentScale">
@@ -59,6 +68,9 @@ export default {
             chord3: "C",
             chord4: "G",
             chordArrray: [],
+            snare: true,
+            kick: true,
+            hihat: true,
         }
     },
     methods: {
@@ -68,17 +80,27 @@ export default {
 
       play: function() {
         let arr = this.populateChordArray();
+        let hihatInput = this.hihat;
+        let kickInput = this.kick;
+        let snareInput = this.snare;
         
         console.log("Initializing sequencer" + "First chord is: " + arr[0]);
 
         seq = new Tone.Sequence(function(time, idx) {
-          hihat.start();
-
-          if ([0, 4, 8, 12].indexOf(idx) >= 0) {
-            kick.start();
+          if (hihatInput) {
+            hihat.start();
           }
-          if ([2, 6, 10, 14].indexOf(idx) >= 0) {
-            snare.start();
+
+          if (kickInput) {
+            if ([0, 4, 8, 12].indexOf(idx) >= 0) {
+              kick.start();
+            }
+          }
+
+          if (snareInput) {
+            if ([2, 6, 10, 14].indexOf(idx) >= 0) {
+              snare.start();
+            }
           }
 
           if (idx == 0) {
