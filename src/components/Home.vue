@@ -28,16 +28,12 @@
       <input type="checkbox" name="kick" id="kick" v-model="kick">
     </div>
 
-
     <br><br>
-    <p v-if="currentScale">Current scales:</p>
+    <h3 v-if="currentScale">Current scales:</h3>
     <ul id="notes" v-for="scale in currentScale" :key="scale.name">
       <li>{{scale.name}}: </li>
       <li v-for="note in scale.notes" :key="note">{{note}}</li>
-
-      
     </ul>
-
 
     <br><br>
     <button v-on:click="play()">PLAY</button>
@@ -87,15 +83,41 @@ export default {
       },
 
       play: function() {
+        let bpmInput = this.bpm;
+
+        this.getCurrentScale(this.chordArrray);
+        this.createSequencer();
+
+        const context = new Tone.Context({ latencyHint: "playback", lookAhead: 0 });
+        Tone.setContext(context);
+
+        if (Tone.context.state !== 'running') {
+          Tone.context.resume();
+        }
+        
+        Tone.Transport.bpm.value = bpmInput;
+
+        console.log("Playing!");
+        Tone.Transport.start();
+        seq.start();
+
+      },
+
+      stop: function() {
+        Tone.Transport.stop();
+        polySynth.releaseAll();
+        seq.stop();
+        seq.clear();
+        seq.dispose();
+      },
+
+      createSequencer: function() {
         let arr = this.populateChordArray();
         let hihatInput = this.hihat;
         let kickInput = this.kick;
         let snareInput = this.snare;
-        let bpmInput = this.bpm;
 
-        //this.getCurrentScale(this.chordArrray);
-        
-        console.log("Initializing sequencer" + "First chord is: " + arr[0]);
+        console.log("Initializing sequencer! " + "First chord is: " + arr[0]);
 
         seq = new Tone.Sequence(function(time, idx) {
           if (hihatInput) {
@@ -128,34 +150,12 @@ export default {
           }
 
         }, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], "8n");
-
-        //const context = new Tone.Context({ latencyHint: "interactive" });
-        //Tone.setContext(context);
-
-        if (Tone.context.state !== 'running') {
-          Tone.context.resume();
-        }
-
-        console.log("Playing!");
-        
-        Tone.Transport.bpm.value = bpmInput;
-        Tone.Transport.start();
-        seq.start();
-
-        
-      },
-
-      stop: function() {
-        Tone.Transport.stop();
-        polySynth.releaseAll();
-        seq.stop();
-        seq.clear();
-        seq.dispose();
       },
 
       populateChordArray: function() {
         let chords = new Chords();
         this.chordArrray = [];
+        this.chordNamesArray = [];
 
         this.chordNamesArray.push(this.chord1);
         this.chordNamesArray.push(this.chord2);
@@ -168,20 +168,18 @@ export default {
         this.chordArrray.push(chords.getNotesForChord(this.chord3));
         this.chordArrray.push(chords.getNotesForChord(this.chord4));
 
-        console.log("Done populating");
+        console.log("Done populating arrays");
         return this.chordArrray;
       },
 
       getCurrentScale: function(input) {
 
         this.populateChordArray();
-
         input = this.chordNamesArray;
-        console.log("Sending to analyzer: " + input);
+        //console.log("Sending to analyzer: " + input);
         let scaleAnalyzer = new ScaleAnalyzer();
 
         let result = scaleAnalyzer.findScaleFor(input);
-
         this.currentScale = result;
         //console.log("Result: " + result.toString());
       },
