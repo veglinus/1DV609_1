@@ -44,3 +44,22 @@ it("Test getScale", () => {
     let result2 = scales.getScale("C");
     expect(result2).to.eql(cMajorScale);
 });
+
+
+it('Test sharp major scale', () => {
+    let scales = new Scales();
+    let result = scales.getScale("F#");
+
+    expect(result).to.have.lengthOf(7);
+    expect(result).to.eql(["F#", "G#", "A#", "B", "C#", "D#", "F"]);
+
+})
+
+it('Test sharp minor scale', () => {
+    let scales = new Scales();
+    let result = scales.getScale("F#m");
+
+    expect(result).to.have.lengthOf(7);
+    expect(result).to.eql(["F#", "G#", "A", "B", "C#", "D", "E"]);
+
+})
