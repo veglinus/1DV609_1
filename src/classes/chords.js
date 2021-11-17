@@ -38,6 +38,7 @@ export default class Chords extends Notes {
         this.stepWhole();
         result.push(this.stepHalf());
 
+        result = result.map(i => i + "3");
         return result;
     }
 
@@ -52,7 +53,7 @@ export default class Chords extends Notes {
         this.stepWhole();
         result.push(this.stepWhole());
 
+        result = result.map(i => i + "3");
         return result;
     }
-
 }
