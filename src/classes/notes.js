@@ -10,9 +10,8 @@ export default class Notes {
 
         if (input.length == 2) {
             let inputSliced = input.slice(0, 1);
-            let inputEnd = input.slice(-1);
+            let inputEnd = input.slice(1, 2);
             let offset = 0;
-            
     
             // Compensates for sharps or flats
             if (inputEnd == "#") {
@@ -50,5 +49,8 @@ export default class Notes {
     }
     getIndex() {
         return this.index;
+    }
+    getCurrentNote() {
+        return this.array[this.index];
     }
 }
