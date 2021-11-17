@@ -12,8 +12,13 @@ export default class Chords extends Notes {
             inputEnd = inputEnd.toLowerCase();
 
             if (inputEnd === "m") {
-                let inputNote = input.slice(0, 2);
-                return this.getMinorChord(inputNote);
+                let expectFlatorSharp = input.slice(1, 2);
+                if (expectFlatorSharp === "#" || expectFlatorSharp === "b") {
+                    return this.getMinorChord(input.slice(0, 2));
+                } else {
+                    return this.getMinorChord(input.slice(0, 1));
+                }
+                
             } else {
                 return this.getMajorChord(input);
             }

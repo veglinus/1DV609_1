@@ -6,16 +6,24 @@ export default class Scales extends Notes {
     }
 
     getScale(input) {
-        let startNote = input.slice(0, 1);
+        //let startNote = input.slice(0, 1);
         if (input.length > 1) {
             let inputEnd = input.slice(-1);
             inputEnd = inputEnd.toLowerCase();
 
             if (inputEnd === "m") {
-                return this.getMinorScale(startNote);
+                let expectFlatorSharp = input.slice(1, 2);
+                if (expectFlatorSharp === "#" || expectFlatorSharp === "b") {
+                    return this.getMinorScale(input.slice(0, 2));
+                } else {
+                    return this.getMinorScale(input.slice(0, 1));
+                }
+                
+            } else {
+                return this.getMajorScale(input);
             }
         } else {
-            return this.getMajorScale(startNote);
+            return this.getMajorScale(input);
         }
     }
 
