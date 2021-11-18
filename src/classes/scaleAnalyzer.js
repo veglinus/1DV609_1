@@ -7,6 +7,7 @@ export default class ScaleAnalyzer extends Scales {
         super();
         this.returnvalue = [];
         this.chords;
+
         this.commonChords = [];
     }
 
@@ -15,7 +16,7 @@ export default class ScaleAnalyzer extends Scales {
         this.chords = chords;
 
         chords.forEach(chord => {
-            this.#compare(chord);
+            this.#compare(chord, false);
         });
         
         this.#findAllScales(this.commonChords);
@@ -35,7 +36,7 @@ export default class ScaleAnalyzer extends Scales {
 
         if (pentatonic) {
             if (matches >= 2) {
-                this.pushCommonChords(scaleChords);
+                this.#pushCommonChords(scaleChords);
                 this.returnvalue.push({
                     name : chord + " pentatonic",
                     notes : oldScale
@@ -107,7 +108,7 @@ export default class ScaleAnalyzer extends Scales {
 
     #findAllScales(commonChords) {
         commonChords.forEach(chord => {
-            this.#compare(chord);
+            this.#compare(chord, true);
         });
     }
 }
