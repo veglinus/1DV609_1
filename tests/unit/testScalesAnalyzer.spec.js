@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import ScalesAnalyzer from "../../src/classes/scaleAnalyzer.js";
 
-it('Find a scale from chords', () => {
+it('Find major, minor and pentatonic scales from chords', () => {
     let scales = new ScalesAnalyzer();
 
     let result = scales.findScaleFor(["Am", "F", "C", "G"]);
@@ -15,6 +15,22 @@ it('Find a scale from chords', () => {
             {
                 "name" : "C",
                 "notes" : ["C", "D", "E", "F", "G", "A", "B"]
+            },
+            {
+                "name" : "Am pentatonic",
+                "notes" : ["A", "C", "D", "E", "G"]
+            },
+            {
+                "name" : "F pentatonic",
+                "notes" : ["F", "G", "A", "C", "D"]
+            },
+            {
+                "name" : "C pentatonic",
+                "notes" : ["C", "D", "E", "G", "A"]
+            },
+            {
+                "name" : "G pentatonic",
+                "notes" : ["G", "A", "B", "D", "E"]
             }
         ]
     );
