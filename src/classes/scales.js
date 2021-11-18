@@ -27,6 +27,28 @@ export default class Scales extends Notes {
         }
     }
 
+    getPentatonicScale(input) {
+        //let startNote = input.slice(0, 1);
+        if (input.length > 1) {
+            let inputEnd = input.slice(-1);
+            inputEnd = inputEnd.toLowerCase();
+
+            if (inputEnd === "m") {
+                let expectFlatorSharp = input.slice(1, 2);
+                if (expectFlatorSharp === "#" || expectFlatorSharp === "b") {
+                    return this.getMinorPentatonicScale(input.slice(0, 2));
+                } else {
+                    return this.getMinorPentatonicScale(input.slice(0, 1));
+                }
+                
+            } else {
+                return this.getMajorPentatonicScale(input);
+            }
+        } else {
+            return this.getMajorPentatonicScale(input);
+        }
+    }
+
     getMajorScale(input) {
         let result = [];
         this.setStartingNote(input);
