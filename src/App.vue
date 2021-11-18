@@ -35,6 +35,11 @@ export default {
   justify-content: center;
 }
 
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 input[type=text] {
 
   width: 12%;

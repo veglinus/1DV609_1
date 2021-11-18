@@ -5,6 +5,14 @@
     <p id="error" v-if="error">{{error}}</p>
 
     <h2>Input chords:</h2>
+
+    <!--
+    <select name="presets" id="presets" v-model="chordArrray">
+      <option selected value="['Am', 'F', 'C', 'G']">Am F C G</option>
+      <option value="['Bm', 'G', 'D', 'A']">Bm G D A</option>
+    </select>
+    -->
+
     <div id="chordInput">
       <input type="text" name="chord1" id="chord1" v-model="chord1">
       <input type="text" name="chord2" id="chord2" v-model="chord2">
@@ -30,10 +38,30 @@
 
     <br><br>
     <h3 v-if="currentScale">Current scales:</h3>
+
+    <table>
+      <tr>
+        <th>Scale</th>
+        <th>I</th>
+        <th>II</th>
+        <th>III</th>
+        <th>IV</th>
+        <th>V</th>
+        <th>VI</th>
+        <th>VII</th>
+      </tr>
+
+      <tr v-for="scale in currentScale" :key="scale.name">
+        <td>{{scale.name}}</td>
+        <td v-for="note in scale.notes" :key="note">{{note}}</td>
+      </tr>
+    </table>
+
+<!--
     <ul id="notes" v-for="scale in currentScale" :key="scale.name">
       <li>{{scale.name}}: </li>
       <li v-for="note in scale.notes" :key="note">{{note}}</li>
-    </ul>
+    </ul>-->
 
     <br><br>
     <button v-on:click="play()">PLAY</button>
@@ -75,6 +103,7 @@ export default {
             snare: true,
             kick: true,
             hihat: true,
+            presets: null,
         }
     },
     methods: {
