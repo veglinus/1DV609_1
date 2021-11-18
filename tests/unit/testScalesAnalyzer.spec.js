@@ -21,12 +21,20 @@ it('Find major, minor and pentatonic scales from chords', () => {
                 "notes" : ["A", "C", "D", "E", "G"]
             },
             {
-                "name" : "F pentatonic",
-                "notes" : ["F", "G", "A", "C", "D"]
-            },
-            {
                 "name" : "C pentatonic",
                 "notes" : ["C", "D", "E", "G", "A"]
+            },
+            {
+                "name" : "Dm pentatonic",
+                "notes" : ["D", "F", "G", "A", "C"]
+            },
+            {
+                "name" : "Em pentatonic",
+                "notes" : ["E", "G", "A", "B", "D"]
+            },
+            {
+                "name" : "F pentatonic",
+                "notes" : ["F", "G", "A", "C", "D"]
             },
             {
                 "name" : "G pentatonic",
