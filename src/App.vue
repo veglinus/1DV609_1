@@ -33,6 +33,9 @@ export default {
 #chordInput {
   display: flex;
   justify-content: center;
+
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 table {
@@ -42,7 +45,7 @@ table {
 
 input[type=text] {
 
-  width: 12%;
+  min-width: 12%;
   padding-top: 2%;
   padding-bottom: 2%;
 
@@ -96,6 +99,16 @@ button {
   margin-left: 1%;
   margin-right: 1%;
 }
+
+@media only screen and (max-width: 800px) {
+
+#chordInput {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+}
+
 /*
 tr:nth-child(odd) {
   background: rgb(224, 224, 224);

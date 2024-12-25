@@ -9,17 +9,38 @@ export default class ScaleAnalyzer extends Scales {
         this.chords;
 
         this.commonChords = [];
+        this.ambiguity = 5;
     }
 
     findScaleFor(chords) {
         this.returnvalue = [];
         this.chords = chords;
 
+        /*
         chords.forEach(chord => {
             this.#compare(chord, false);
         });
-        
         this.#findAllScales(this.commonChords);
+
+        if (this.returnvalue.length === 0) {
+            console.log("No results, ambigious");
+            this.ambiguity--;
+            chords.forEach(chord => {
+                this.#compare(chord, false);
+            });
+            this.#findAllScales(this.commonChords);
+        }*/
+
+        do {
+            this.ambiguity--;
+            console.log("Ambiguity: " + this.ambiguity)
+            chords.forEach(chord => {
+                this.#compare(chord, false);
+            });
+            this.#findAllScales(this.commonChords);
+            
+        } while (this.returnvalue.length === 0);
+
         return this.returnvalue;
     }
 
@@ -37,18 +58,27 @@ export default class ScaleAnalyzer extends Scales {
         if (pentatonic) {
             if (matches >= 2) {
                 this.#pushCommonChords(scaleChords);
-                this.returnvalue.push({
-                    name : chord + " pentatonic",
-                    notes : oldScale
-                });
+                let newData = {
+                name : chord + " pentatonic",
+                notes : oldScale
+                };
+                if (!this.returnvalue.find(key => key.name === chord + " pentatonic")) {
+                    this.returnvalue.push(newData);
+                }
             }
         } else {
-            if (matches === this.chords.length) {
+            //console.log(matches);
+            if (matches === this.ambiguity) {
+                console.log(chord + " matches: " + matches);
                 this.#pushCommonChords(scaleChords);
-                this.returnvalue.push({
+                let newData = {
                     name : chord,
                     notes : oldScale
-                });
+                };
+                if (!this.returnvalue.find(key => key.name === chord)) {
+                    this.returnvalue.push(newData);
+                }
+                
             }
         }
 
@@ -107,6 +137,7 @@ export default class ScaleAnalyzer extends Scales {
     }
 
     #findAllScales(commonChords) {
+        console.log("Common chords: " + commonChords);
         commonChords.forEach(chord => {
             this.#compare(chord, true);
         });

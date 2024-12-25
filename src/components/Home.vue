@@ -14,10 +14,10 @@
     -->
 
     <div id="chordInput">
-      <input type="text" name="chord1" id="chord1" v-model="chord1">
-      <input type="text" name="chord2" id="chord2" v-model="chord2">
-      <input type="text" name="chord3" id="chord3" v-model="chord3">
-      <input type="text" name="chord4" id="chord4" v-model="chord4">
+      <input type="text" name="chord1" id="chord1" v-model="chord1" @blur="getCurrentScale()">
+      <input type="text" name="chord2" id="chord2" v-model="chord2" @blur="getCurrentScale()">
+      <input type="text" name="chord3" id="chord3" v-model="chord3" @blur="getCurrentScale()">
+      <input type="text" name="chord4" id="chord4" v-model="chord4" @blur="getCurrentScale()">
     </div>
 
     <br><br>

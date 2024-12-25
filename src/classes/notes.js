@@ -3,6 +3,7 @@ export default class Notes {
     constructor() {
         this.index = 0;
         this.array = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+        this.flatArray = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
     }
 
     setStartingNote(input) {
@@ -13,12 +14,17 @@ export default class Notes {
             let inputSliced = input.slice(0, 1);
             let inputEnd = input.slice(1, 2);
             let offset = 0;
+
+            // Changes notes to flats instead of sharps
+            if (inputEnd == "b" || inputSliced === "F") {
+                this.array = this.flatArray;
+            }
     
             // Compensates for sharps or flats
             if (inputEnd == "#") {
-            offset++;
+                offset++;
             } else if (inputEnd == "b") {
-            offset--;
+                offset--;
             }
     
             result = this.array.indexOf(inputSliced);
@@ -32,9 +38,10 @@ export default class Notes {
     }
 
     verifyIndex() {
-        if (this.index > 11) {
+        if (this.index > 11 || this.index < 0) {
             this.index = this.index % 12;
         }
+
         return;
     }
 
